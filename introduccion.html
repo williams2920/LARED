@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>La Red</title>
+
+
+	<style type="text/css">
+
+	/*texto de css*/
+	body{
+		background-color: #939990;
+	}
+
+	* { padding: 0; margin: auto; text-align: center; }
+	#cabecera { background-color: #fff0f0; }  
+	h1 { font: bold 1.5em arial; padding: 0.5em; }
+	#navegador { background-color: #F50000; padding: 0.5em; }
+	#navegador li { margin: 0px 5px; padding: 0.1em 1em 0.5em 1em; 
+	           background-color: #F50000; width: 12%;float: left;
+	           list-style-type: none; position: relative;  }
+	#navegador li:hover { background-color: #F53D3D; }
+	#navegador li a:link, #navegador li a:visited { 
+	           color: #030303; text-decoration: none; }
+	#navegador li a:hover, #navegador li a:active { 
+	           color:#030303 ; text-decoration: none; }
+	.borrar { clear: both; }	
+	#principal h2 { font: bold 1.5em arial; padding: 0.5em }
+	#principal p { font: normal 0.9em arial; text-align: justify;
+	           text-indent: 3em; padding: 0.5em 2em; }
+	#subseccion1, #subseccion2, #subseccion3, #subseccion4 { position: absolute; top: 100%; left: 0px;  
+             background-color: #F53D3D; font:normal 0.8em arial;  
+             padding: 0.2em 0.5em ; display: none;}
+  	#Titulo{
+  		position: relative;
+  		background-color: #024FB2;
+  		height: 130PX;
+  		margin-left: 0%
+  	}
+  	#chapulin{
+  		position: relative;
+  		width: 150px; height: 130px;
+  		left: -45%;
+  		top: -37px;
+  	}
+    #TituloRed{
+   		position: relative;
+    	font-size: xx-large;
+    	font-style: initial;
+    	top: 30px;
+    }
+	</style>
+</head>
+<body>
+	<div id="Titulo">
+		<p id="TituloRed">LA RED</p>
+
+	</div>
+	
+	
+	<div id="navegador">
+	  <ul>
+	    <li id="seccion1" onmouseover="ver(1)" onmouseout="ocultar(1)"><a href="#">Sección Uno</a>
+	    	<div id="subseccion1">
+	     	<p><a href="#"> Subsección uno uno</a></p>
+	     	<p><a href="#"> Subsección uno dos</a></p>
+	    	<p><a href="#"> Subsección uno tres</a></p>
+	     	<p><a href="#"> Subsección uno cuatro</a></p> 
+	      	</div>
+	    </li>
+	    <li id="seccion2" onmouseover="ver(2)" onmouseout="ocultar(2)"><a href="#">Sección Dos</a>
+	    	<div id="subseccion2">
+	     	<p><a href="#"> Subsección dos uno</a></p>
+	     	<p><a href="#"> Subsección dos dos</a></p>
+	    	<p><a href="#"> Subsección dos tres</a></p>
+	     	<p><a href="#"> Subsección dos cuatro</a></p> 
+	      	</div>
+	    </li>
+	    <li id="seccion3" onmouseover="ver(3)" onmouseout="ocultar(3)"><a href="#">Sección Tres</a>
+	    	<div id="subseccion3">
+	     	<p><a href="#"> Subsección tres uno</a></p>
+	     	<p><a href="#"> Subsección tres dos</a></p>
+	    	<p><a href="#"> Subsección tres tres</a></p>
+	     	<p><a href="#"> Subsección tres cuatro</a></p> 
+	      	</div>
+	    </li>
+	    <li id="seccion4" onmouseover="ver(4)" onmouseout="ocultar(4)"><a href="#">Sección Cuatro</a>
+	    	<div id="subseccion4">
+	     	<p><a href="#"> Subsección cuatro uno</a></p>
+	     	<p><a href="#"> Subsección cuatro dos</a></p>
+	    	<p><a href="#"> Subsección cuatro tres</a></p>
+	     	<p><a href="#"> Subsección cuatro cuatro</a></p> 
+	      	</div>
+	    </li> 
+	  </ul>
+	  <div class="borrar"></div>
+	</div>
+
+	<script src="intro.js"></script>
+</body>
+</html>
