@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CURRENT_USER, POSTS, TRENDS } from '@core/data/mock-data';
+import { Post } from '@core/data/models';
 import { EcosystemService } from '@core/services/ecosystem.service';
 import { Avatar } from '@shared/ui/avatar/avatar';
 import { Icon } from '@shared/ui/icon/icon';
@@ -27,15 +28,33 @@ export class Feed {
   ];
   protected readonly tab = signal<FeedTab>('para-ti');
   protected readonly draft = signal('');
+  private readonly allPosts = signal<Post[]>(POSTS);
 
   protected readonly posts = computed(() => {
     switch (this.tab()) {
       case 'agentes':
-        return POSTS.filter((p) => p.isAgent);
+        return this.allPosts().filter((p) => p.isAgent);
       case 'siguiendo':
-        return POSTS.filter((p) => !p.isAgent);
+        return this.allPosts().filter((p) => !p.isAgent);
       default:
-        return POSTS;
+        return this.allPosts();
     }
   });
+
+  protected publish(): void {
+    const content = this.draft().trim();
+    if (!content) return;
+    const post: Post = {
+      id: `local-${Date.now()}`,
+      author: CURRENT_USER,
+      time: 'ahora',
+      content,
+      likes: 0,
+      comments: 0,
+      reposts: 0,
+    };
+    this.allPosts.update((posts) => [post, ...posts]);
+    this.draft.set('');
+    this.tab.set('para-ti');
+  }
 }
