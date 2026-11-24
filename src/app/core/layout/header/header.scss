@@ -201,10 +201,9 @@ svg {
   }
 }
 
-// En escritorio también se abre con hover / foco (como el menú original).
+// En escritorio también se abre con hover (como el menú original); con teclado se usa el botón.
 @include up(lg) {
-  .nav__item:hover,
-  .nav__item:focus-within {
+  .nav__item:hover {
     .submenu {
       display: block;
     }
