@@ -7,9 +7,9 @@ import { Header } from '@core/layout/header/header';
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer],
   template: `
-    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <a class="skip-link" href="#contenido" (click)="skipToContent($event, main)">Saltar al contenido</a>
     <app-header />
-    <main id="contenido" tabindex="-1">
+    <main #main id="contenido" tabindex="-1">
       <router-outlet />
     </main>
     <app-footer />
@@ -26,4 +26,10 @@ import { Header } from '@core/layout/header/header';
     }
   `,
 })
-export class App {}
+export class App {
+  // Con <base href="/"> un href="#id" navegaría a la raíz; se enfoca el contenido sin salir de la página.
+  protected skipToContent(event: Event, main: HTMLElement): void {
+    event.preventDefault();
+    main.focus();
+  }
+}
