@@ -13,19 +13,36 @@ export class ThemeService {
 
   constructor() {
     effect(() => {
-      const theme = this.theme();
-      this.document.documentElement.dataset['theme'] = theme;
-      this.window?.localStorage?.setItem(STORAGE_KEY, theme);
+      this.document.documentElement.dataset['theme'] = this.theme();
     });
   }
 
   toggle(): void {
-    this.theme.update((t) => (t === 'dark' ? 'light' : 'dark'));
+    const next: Theme = this.theme() === 'dark' ? 'light' : 'dark';
+    this.theme.set(next);
+    this.writeStorage(next);
   }
 
   private initialTheme(): Theme {
-    const stored = this.window?.localStorage?.getItem(STORAGE_KEY);
+    const stored = this.readStorage();
     if (stored === 'light' || stored === 'dark') return stored;
     return this.window?.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  // localStorage puede lanzar si el navegador bloquea el almacenamiento.
+  private readStorage(): string | null {
+    try {
+      return this.window?.localStorage?.getItem(STORAGE_KEY) ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  private writeStorage(theme: Theme): void {
+    try {
+      this.window?.localStorage?.setItem(STORAGE_KEY, theme);
+    } catch {
+      /* almacenamiento no disponible */
+    }
   }
 }
