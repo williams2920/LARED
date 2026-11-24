@@ -37,8 +37,12 @@
               <app-icon name="sparkles" [size]="16" /> Invocar agente
             </button>
           </div>
-          <button type="button" class="btn btn--primary btn--sm" [disabled]="!draft().trim()"
-            (click)="publish()">
+          <button
+            type="button"
+            class="btn btn--primary btn--sm"
+            [disabled]="!draft().trim()"
+            (click)="publish()"
+          >
             Publicar <app-icon name="send" [size]="14" />
           </button>
         </div>
