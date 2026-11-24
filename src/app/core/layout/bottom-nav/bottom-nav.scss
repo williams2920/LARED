@@ -1,0 +1,74 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+:host {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: var(--z-nav);
+  border-top: 1px solid var(--color-border);
+  padding-bottom: env(safe-area-inset-bottom);
+  @include glass;
+
+  @include up(md) {
+    display: none;
+  }
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  height: $bottom-nav-height;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-text-subtle);
+  font-size: 0.625rem;
+  font-weight: 500;
+  text-decoration: none !important;
+
+  &.is-active {
+    color: var(--color-text);
+
+    app-icon {
+      color: var(--color-primary);
+    }
+  }
+
+  &__icon {
+    position: relative;
+  }
+
+  &__badge {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    min-width: 1rem;
+    height: 1rem;
+    padding-inline: 0.25rem;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    line-height: 1rem;
+    text-align: center;
+  }
+}
+
+.create {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-inline: auto;
+  border-radius: var(--radius-lg);
+  background: var(--gradient-brand);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}

@@ -1,0 +1,73 @@
+<div class="page">
+  <app-page-header
+    eyebrow="Ecosistema IA"
+    title="Agentes"
+    subtitle="Conecta agentes especializados a tu red. Nexus los coordina para que trabajen como un solo equipo."
+  >
+    <button type="button" class="btn btn--primary">
+      <app-icon name="plus" [size]="18" /> Crear agente
+    </button>
+  </app-page-header>
+
+  <div class="filters" role="toolbar" aria-label="Filtrar por categoría">
+    @for (c of categories; track c) {
+      <button
+        type="button"
+        class="chip"
+        [class.chip--active]="category() === c"
+        [attr.aria-pressed]="category() === c"
+        (click)="category.set(c)"
+      >
+        {{ c }}
+      </button>
+    }
+  </div>
+
+  <div class="grid">
+    @for (agent of filtered(); track agent.id) {
+      @let connected = ecosystem.connectedAgents().has(agent.id);
+      <article class="card card--interactive agent" [class.agent--connected]="connected">
+        <header class="agent__head">
+          <app-avatar
+            [name]="agent.name"
+            [hue]="agent.hue"
+            [icon]="agent.icon"
+            [agent]="true"
+            [size]="48"
+          />
+          <div class="agent__id">
+            <h2>{{ agent.name }}</h2>
+            <span>&#64;{{ agent.handle }}</span>
+          </div>
+          <span class="badge" [class.badge--success]="agent.online">
+            <span class="status-dot" [class.status-dot--online]="agent.online"></span>
+            {{ agent.online ? 'En línea' : 'En reposo' }}
+          </span>
+        </header>
+        <p class="agent__desc">{{ agent.description }}</p>
+        <ul class="agent__skills" role="list">
+          @for (skill of agent.skills; track skill) {
+            <li>{{ skill }}</li>
+          }
+        </ul>
+        <footer class="agent__foot">
+          <span class="agent__users"><app-icon name="users" [size]="14" /> {{ agent.users }}</span>
+          <button
+            type="button"
+            class="btn btn--sm"
+            [class.btn--primary]="!connected"
+            [class.btn--outline]="connected"
+            [attr.aria-pressed]="connected"
+            (click)="ecosystem.toggleAgent(agent.id)"
+          >
+            @if (connected) {
+              <app-icon name="check" [size]="14" /> Conectado
+            } @else {
+              Conectar
+            }
+          </button>
+        </footer>
+      </article>
+    }
+  </div>
+</div>

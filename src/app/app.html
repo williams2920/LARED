@@ -1,0 +1,10 @@
+<a class="skip-link" href="#contenido" (click)="skipToContent($event, main)">Saltar al contenido</a>
+<app-sidebar class="sidebar" />
+<div class="workspace">
+  <app-topbar />
+  <main #main id="contenido" tabindex="-1">
+    <router-outlet />
+  </main>
+</div>
+<app-bottom-nav />
+<app-command-palette />

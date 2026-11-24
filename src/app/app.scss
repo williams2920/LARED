@@ -1,0 +1,39 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100dvh;
+
+  @include up(md) {
+    grid-template-columns: $sidebar-rail 1fr;
+  }
+
+  @include up(xl) {
+    grid-template-columns: $sidebar-full 1fr;
+  }
+}
+
+.sidebar {
+  @include down(md) {
+    display: none;
+  }
+}
+
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+main {
+  flex: 1;
+  outline: none;
+  container-type: inline-size;
+  padding-bottom: $bottom-nav-height;
+
+  @include up(md) {
+    padding-bottom: 0;
+  }
+}

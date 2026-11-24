@@ -1,0 +1,134 @@
+// Design tokens de LA RED: el núcleo donde la tecnología se conecta.
+// Edita aquí la identidad visual (paleta, tipografía, espaciado, radios, sombras, movimiento).
+
+:root {
+  // ---------- Marca ----------
+  --brand-violet: #7c5cff;
+  --brand-blue: #4f8bff;
+  --brand-cyan: #22d3ee;
+  --brand-mint: #34d399;
+  --brand-magenta: #f472b6;
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--brand-violet) 0%,
+    var(--brand-blue) 50%,
+    var(--brand-cyan) 100%
+  );
+  --gradient-aurora:
+    radial-gradient(60rem 40rem at 10% -10%, rgb(124 92 255 / 0.16), transparent 60%),
+    radial-gradient(50rem 30rem at 100% 0%, rgb(34 211 238 / 0.1), transparent 60%);
+
+  // ---------- Tipografía ----------
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Montserrat Variable', var(--font-sans);
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: clamp(1.625rem, 1.3rem + 1.2vw, 2rem);
+  --text-4xl: clamp(2rem, 1.5rem + 2.4vw, 2.75rem);
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.55;
+
+  // ---------- Espaciado (escala 4px) ----------
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+  --space-8: 3rem;
+
+  // ---------- Bordes ----------
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 999px;
+
+  // ---------- Movimiento ----------
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // ---------- Capas ----------
+  --z-sticky: 100;
+  --z-nav: 200;
+  --z-overlay: 400;
+
+  // ---------- Tema oscuro (por defecto) ----------
+  color-scheme: dark;
+  --color-bg: #07080d;
+  --color-bg-elevated: #0c0e15;
+  --color-surface: #10121a;
+  --color-surface-alt: #161925;
+  --color-surface-hover: #1b1f2d;
+  --color-glass: rgb(12 14 21 / 0.72);
+  --color-border: rgb(255 255 255 / 0.07);
+  --color-border-strong: rgb(255 255 255 / 0.13);
+  --color-text: #eef0f7;
+  --color-text-muted: #9aa1b8;
+  --color-text-subtle: #646c85;
+  --color-primary: #8b6dff;
+  --color-primary-hover: #9d84ff;
+  --color-primary-soft: rgb(124 92 255 / 0.15);
+  --color-on-primary: #ffffff;
+  --color-accent: var(--brand-cyan);
+  --color-accent-soft: rgb(34 211 238 / 0.12);
+  --color-success: var(--brand-mint);
+  --color-success-soft: rgb(52 211 153 / 0.14);
+  --color-warning: #fbbf24;
+  --color-danger: #fb7185;
+  --color-danger-soft: rgb(251 113 133 / 0.14);
+  --color-link: #a996ff;
+  --color-focus: #a996ff;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.55);
+  --shadow-glow: 0 0 0 1px rgb(124 92 255 / 0.35), 0 8px 32px rgb(124 92 255 / 0.25);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f5f6fb;
+  --color-bg-elevated: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f1f2f8;
+  --color-surface-hover: #eceef6;
+  --color-glass: rgb(255 255 255 / 0.78);
+  --color-border: rgb(16 20 45 / 0.08);
+  --color-border-strong: rgb(16 20 45 / 0.14);
+  --color-text: #0d1022;
+  --color-text-muted: #565d75;
+  --color-text-subtle: #8a90a6;
+  --color-primary: #6a45ff;
+  --color-primary-hover: #5835f0;
+  --color-primary-soft: rgb(106 69 255 / 0.1);
+  --color-accent: #0891b2;
+  --color-accent-soft: rgb(8 145 178 / 0.1);
+  --color-success: #059669;
+  --color-success-soft: rgb(5 150 105 / 0.1);
+  --color-danger: #e11d48;
+  --color-danger-soft: rgb(225 29 72 / 0.08);
+  --color-link: #5835f0;
+  --color-focus: #6a45ff;
+  --gradient-aurora:
+    radial-gradient(60rem 40rem at 10% -10%, rgb(124 92 255 / 0.1), transparent 60%),
+    radial-gradient(50rem 30rem at 100% 0%, rgb(34 211 238 / 0.08), transparent 60%);
+
+  --shadow-sm: 0 1px 2px rgb(16 20 45 / 0.06);
+  --shadow-md: 0 8px 24px rgb(16 20 45 / 0.08);
+  --shadow-lg: 0 24px 64px rgb(16 20 45 / 0.16);
+  --shadow-glow: 0 0 0 1px rgb(106 69 255 / 0.25), 0 8px 32px rgb(106 69 255 / 0.18);
+}
