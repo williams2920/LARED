@@ -5,6 +5,9 @@ html {
 }
 
 body {
+  background-color: var(--color-bg);
+  background-image: var(--gradient-aurora);
+  background-attachment: fixed;
   transition:
     background-color var(--duration-base) var(--ease-standard),
     color var(--duration-base) var(--ease-standard);
@@ -17,4 +20,9 @@ body {
 ::selection {
   background: var(--color-primary);
   color: var(--color-on-primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
 }

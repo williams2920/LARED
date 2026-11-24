@@ -3,7 +3,7 @@ body {
   font-size: var(--text-base);
   line-height: var(--leading-normal);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  font-feature-settings: 'cv11', 'ss01';
 }
 
 h1,
@@ -15,35 +15,48 @@ h6 {
   font-family: var(--font-display);
   line-height: var(--leading-tight);
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: var(--text-4xl);
-}
-h2 {
   font-size: var(--text-3xl);
 }
-h3 {
+h2 {
   font-size: var(--text-2xl);
 }
-h4 {
-  font-size: var(--text-xl);
-}
-
-p + p {
-  margin-top: var(--space-4);
+h3 {
+  font-size: var(--text-lg);
 }
 
 a {
   color: var(--color-link);
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
 }
 
-code {
+code,
+pre {
   font-family: var(--font-mono);
-  font-size: 0.9em;
-  padding: 0.1em 0.35em;
-  border-radius: var(--radius-sm);
+  font-size: 0.875em;
+}
+
+:not(pre) > code {
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-xs);
   background: var(--color-surface-alt);
+}
+
+.text-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
 }

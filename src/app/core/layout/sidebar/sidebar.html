@@ -1,0 +1,60 @@
+<a routerLink="/" class="brand" aria-label="LA RED, inicio">
+  <app-logo [size]="36" class="brand__full" />
+  <app-logo [size]="36" [showWordmark]="false" class="brand__rail" />
+</a>
+
+<nav class="nav" aria-label="Menú principal">
+  @for (section of sections; track $index) {
+    <div class="nav__section">
+      @if (section.title) {
+        <p class="nav__title">{{ section.title }}</p>
+      }
+      <ul role="list">
+        @for (item of section.items; track item.path) {
+          <li>
+            <a
+              class="nav__link"
+              [routerLink]="item.path"
+              routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+              #rla="routerLinkActive"
+              [attr.title]="item.label"
+            >
+              <app-icon [name]="item.icon" [size]="22" [strokeWidth]="rla.isActive ? 2.25 : 1.75" />
+              <span class="nav__label">{{ item.label }}</span>
+              @if (item.badge) {
+                <span class="nav__badge" [attr.aria-label]="item.badge + ' sin leer'">{{
+                  item.badge
+                }}</span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</nav>
+
+<a class="btn btn--primary create" routerLink="/" fragment="crear" title="Crear publicación">
+  <app-icon name="plus" [size]="20" [strokeWidth]="2.25" />
+  <span class="nav__label">Crear</span>
+</a>
+
+<div class="footer">
+  <button
+    type="button"
+    class="btn btn--ghost btn--icon theme"
+    (click)="theme.toggle()"
+    [attr.aria-label]="theme.theme() === 'dark' ? 'Activar tema claro' : 'Activar tema oscuro'"
+    [attr.title]="theme.theme() === 'dark' ? 'Tema claro' : 'Tema oscuro'"
+  >
+    <app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" />
+  </button>
+  <a routerLink="/perfil" class="user">
+    <app-avatar [name]="user.name" [hue]="user.hue" [size]="36" [online]="true" />
+    <span class="user__meta nav__label">
+      <strong>{{ user.name }}</strong>
+      <span>&#64;{{ user.handle }}</span>
+    </span>
+  </a>
+</div>

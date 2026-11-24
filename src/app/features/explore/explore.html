@@ -1,0 +1,77 @@
+<div class="page">
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <p class="hero__eyebrow">
+      <app-icon name="sparkles" [size]="14" /> El núcleo donde la tecnología se conecta
+    </p>
+    <h1>Todo tu ecosistema tech,<br /><span class="text-gradient">en una sola red.</span></h1>
+    <p class="hero__lead">
+      Personas, agentes y herramientas colaborando en el mismo lugar. Pregunta, construye y
+      comparte.
+    </p>
+    <button type="button" class="hero__search" (click)="palette.open()" aria-haspopup="dialog">
+      <app-icon name="search" [size]="18" />
+      <span>Pregunta a Nexus o busca en LA RED…</span>
+      <span class="kbd">Ctrl K</span>
+    </button>
+  </section>
+
+  <app-page-header title="Comunidades destacadas" />
+  <div class="grid">
+    @for (c of communities; track c.name) {
+      <a routerLink="/comunidades" class="card card--interactive community">
+        <span class="community__icon" [style.--hue]="c.hue"
+          ><app-icon name="hash" [size]="22"
+        /></span>
+        <div>
+          <h2>{{ c.name }}</h2>
+          <p>{{ c.topic }}</p>
+        </div>
+        <span class="community__members"
+          ><app-icon name="users" [size]="14" /> {{ c.members }}</span
+        >
+      </a>
+    }
+  </div>
+
+  <div class="split">
+    <section>
+      <app-page-header title="Agentes populares" />
+      <ul class="rows" role="list">
+        @for (agent of ecosystem.agents.slice(0, 4); track agent.id) {
+          <li>
+            <a routerLink="/agentes" class="row-link">
+              <app-avatar
+                [name]="agent.name"
+                [hue]="agent.hue"
+                [icon]="agent.icon"
+                [agent]="true"
+                [size]="40"
+              />
+              <div class="row-link__meta">
+                <strong>{{ agent.name }}</strong>
+                <span>{{ agent.description }}</span>
+              </div>
+              <app-icon name="chevron-right" [size]="18" />
+            </a>
+          </li>
+        }
+      </ul>
+    </section>
+    <section>
+      <app-page-header title="Tendencias" />
+      <ul class="rows" role="list">
+        @for (t of trends; track t.tag) {
+          <li class="row-link">
+            <span class="row-link__hash"><app-icon name="hash" [size]="18" /></span>
+            <div class="row-link__meta">
+              <strong>{{ t.tag }}</strong>
+              <span>{{ t.posts }} publicaciones</span>
+            </div>
+            <app-icon name="flame" [size]="18" class="hot" />
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+</div>

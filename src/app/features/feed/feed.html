@@ -1,0 +1,139 @@
+<div class="layout">
+  <section class="timeline" aria-label="Publicaciones">
+    <div class="composer card" id="crear">
+      <app-avatar [name]="user.name" [hue]="user.hue" [size]="44" />
+      <div class="composer__main">
+        <textarea
+          rows="2"
+          placeholder="¿Qué estás construyendo hoy? Menciona @nexus para pedir ayuda a un agente"
+          aria-label="Escribe una publicación"
+          [value]="draft()"
+          (input)="draft.set($any($event.target).value)"
+        ></textarea>
+        <div class="composer__bar">
+          <div class="composer__tools">
+            <button
+              type="button"
+              class="btn btn--ghost btn--icon btn--sm"
+              aria-label="Adjuntar imagen"
+            >
+              <app-icon name="image" [size]="18" />
+            </button>
+            <button
+              type="button"
+              class="btn btn--ghost btn--icon btn--sm"
+              aria-label="Insertar código"
+            >
+              <app-icon name="code" [size]="18" />
+            </button>
+            <button
+              type="button"
+              class="btn btn--ghost btn--icon btn--sm"
+              aria-label="Adjuntar archivo"
+            >
+              <app-icon name="paperclip" [size]="18" />
+            </button>
+            <button type="button" class="btn btn--soft btn--sm">
+              <app-icon name="sparkles" [size]="16" /> Invocar agente
+            </button>
+          </div>
+          <button type="button" class="btn btn--primary btn--sm" [disabled]="!draft().trim()">
+            Publicar <app-icon name="send" [size]="14" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Filtrar publicaciones">
+      @for (t of tabs; track t.id) {
+        <button
+          type="button"
+          role="tab"
+          class="tabs__tab"
+          [class.is-active]="tab() === t.id"
+          [attr.aria-selected]="tab() === t.id"
+          (click)="tab.set(t.id)"
+        >
+          {{ t.label }}
+        </button>
+      }
+    </div>
+
+    <div class="posts">
+      @for (post of posts(); track post.id) {
+        <app-post-card [post]="post" />
+      }
+    </div>
+  </section>
+
+  <aside class="aside" aria-label="Tu núcleo">
+    <div class="card hub">
+      <div class="hub__head">
+        <app-icon name="network" [size]="18" />
+        <h2>Tu núcleo</h2>
+      </div>
+      <p class="text-muted">Todo lo que conectas trabaja en conjunto.</p>
+      <dl class="hub__stats">
+        <div>
+          <dt>Agentes activos</dt>
+          <dd>{{ ecosystem.activeAgents().length }}</dd>
+        </div>
+        <div>
+          <dt>Integraciones</dt>
+          <dd>
+            {{ ecosystem.connectedIntegrationCount()
+            }}<span>/{{ ecosystem.integrations.length }}</span>
+          </dd>
+        </div>
+      </dl>
+      <a routerLink="/integraciones" class="btn btn--outline btn--sm hub__cta"
+        >Conectar herramientas <app-icon name="arrow-right" [size]="14"
+      /></a>
+    </div>
+
+    <div class="card">
+      <h2 class="aside__title">Agentes activos</h2>
+      <ul class="list" role="list">
+        @for (agent of ecosystem.activeAgents(); track agent.id) {
+          <li class="list__item">
+            <app-avatar
+              [name]="agent.name"
+              [hue]="agent.hue"
+              [icon]="agent.icon"
+              [agent]="true"
+              [size]="36"
+            />
+            <div class="list__meta">
+              <strong>{{ agent.name }}</strong>
+              <span>{{ agent.category }}</span>
+            </div>
+            <span
+              class="status-dot"
+              [class.status-dot--online]="agent.online"
+              [attr.aria-label]="agent.online ? 'En línea' : 'Inactivo'"
+            ></span>
+          </li>
+        } @empty {
+          <li class="text-muted">Aún no conectas agentes.</li>
+        }
+      </ul>
+      <a routerLink="/agentes" class="aside__more">Descubrir agentes</a>
+    </div>
+
+    <div class="card">
+      <h2 class="aside__title">Tendencias</h2>
+      <ul class="list" role="list">
+        @for (trend of trends; track trend.tag; let i = $index) {
+          <li class="list__item">
+            <span class="trend__rank">{{ i + 1 }}</span>
+            <div class="list__meta">
+              <strong>#{{ trend.tag }}</strong>
+              <span>{{ trend.posts }} publicaciones</span>
+            </div>
+            <app-icon name="trending" [size]="16" class="trend__icon" />
+          </li>
+        }
+      </ul>
+    </div>
+  </aside>
+</div>

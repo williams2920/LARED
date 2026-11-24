@@ -1,0 +1,88 @@
+<div class="page">
+  <app-page-header
+    eyebrow="Ecosistema IA"
+    title="Integraciones"
+    subtitle="Centraliza tus herramientas. Lo que conectas aquí queda disponible para tus agentes y tu feed."
+  />
+
+  <div class="summary card">
+    <div class="summary__core" aria-hidden="true">
+      <app-icon name="network" [size]="28" />
+    </div>
+    <div>
+      <strong
+        >{{ ecosystem.connectedIntegrationCount() }} de
+        {{ ecosystem.integrations.length }} herramientas conectadas</strong
+      >
+      <p>Tus agentes pueden leer y actuar sobre estas fuentes con tu permiso.</p>
+    </div>
+    <div
+      class="summary__bar"
+      role="progressbar"
+      [attr.aria-valuenow]="ecosystem.connectedIntegrationCount()"
+      aria-valuemin="0"
+      [attr.aria-valuemax]="ecosystem.integrations.length"
+    >
+      <span
+        [style.width.%]="
+          (ecosystem.connectedIntegrationCount() / ecosystem.integrations.length) * 100
+        "
+      ></span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <label class="search">
+      <app-icon name="search" [size]="16" />
+      <input
+        type="search"
+        placeholder="Buscar integración"
+        aria-label="Buscar integración"
+        [value]="query()"
+        (input)="query.set($any($event.target).value)"
+      />
+    </label>
+    <div class="filters" role="toolbar" aria-label="Filtrar por categoría">
+      @for (c of categories; track c) {
+        <button
+          type="button"
+          class="chip"
+          [class.chip--active]="category() === c"
+          [attr.aria-pressed]="category() === c"
+          (click)="category.set(c)"
+        >
+          {{ c }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="grid">
+    @for (item of filtered(); track item.id) {
+      @let connected = ecosystem.connectedIntegrations().has(item.id);
+      <article class="card integration" [class.integration--connected]="connected">
+        <header class="integration__head">
+          <span class="integration__logo" [style.background]="item.color">{{ item.name[0] }}</span>
+          <div>
+            <h2>{{ item.name }}</h2>
+            <span>{{ item.category }}</span>
+          </div>
+        </header>
+        <p>{{ item.description }}</p>
+        <button
+          type="button"
+          class="switch"
+          role="switch"
+          [attr.aria-checked]="connected"
+          [attr.aria-label]="(connected ? 'Desconectar ' : 'Conectar ') + item.name"
+          (click)="ecosystem.toggleIntegration(item.id)"
+        >
+          <span class="switch__track"><span class="switch__thumb"></span></span>
+          {{ connected ? 'Conectado' : 'Desconectado' }}
+        </button>
+      </article>
+    } @empty {
+      <p class="text-muted">No hay integraciones que coincidan.</p>
+    }
+  </div>
+</div>

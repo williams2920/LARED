@@ -26,7 +26,7 @@ export class ThemeService {
   private initialTheme(): Theme {
     const stored = this.readStorage();
     if (stored === 'light' || stored === 'dark') return stored;
-    return this.window?.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return 'dark';
   }
 
   // localStorage puede lanzar si el navegador bloquea el almacenamiento.

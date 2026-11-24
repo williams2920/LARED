@@ -1,0 +1,45 @@
+<a routerLink="/" class="mobile-brand" aria-label="LA RED, inicio">
+  <app-logo [size]="32" />
+</a>
+
+<button type="button" class="search" (click)="palette.open()" aria-haspopup="dialog">
+  <app-icon name="search" [size]="18" />
+  <span class="search__placeholder">Busca personas, agentes o pregunta a Nexus…</span>
+  <span class="search__keys" aria-hidden="true"
+    ><span class="kbd">Ctrl</span><span class="kbd">K</span></span
+  >
+</button>
+
+<div class="actions">
+  <button
+    type="button"
+    class="btn btn--ghost btn--icon mobile-only"
+    (click)="palette.open()"
+    aria-label="Buscar"
+  >
+    <app-icon name="search" />
+  </button>
+  <button
+    type="button"
+    class="btn btn--ghost btn--icon mobile-only"
+    (click)="theme.toggle()"
+    [attr.aria-label]="theme.theme() === 'dark' ? 'Activar tema claro' : 'Activar tema oscuro'"
+  >
+    <app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" />
+  </button>
+  <a
+    class="btn btn--ghost btn--icon bell"
+    routerLink="/notificaciones"
+    aria-label="Notificaciones (12 nuevas)"
+  >
+    <app-icon name="bell" />
+    <span class="bell__dot"></span>
+  </a>
+  <a class="btn btn--soft ask desktop-only" routerLink="/agentes">
+    <app-icon name="sparkles" [size]="18" />
+    Agentes
+  </a>
+  <a routerLink="/perfil" class="mobile-only" aria-label="Tu perfil">
+    <app-avatar [name]="user.name" [hue]="user.hue" [size]="32" />
+  </a>
+</div>
