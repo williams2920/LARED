@@ -1,4 +1,6 @@
+import { DOCUMENT } from '@angular/common';
 import {
+  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -64,6 +66,8 @@ const BASE_COMMANDS: Command[] = [
 export class CommandPalette {
   protected readonly palette = inject(CommandPaletteService);
   private readonly router = inject(Router);
+  private readonly document = inject(DOCUMENT);
+  private opener: HTMLElement | null = null;
   private readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 
   protected readonly query = signal('');
@@ -97,14 +101,28 @@ export class CommandPalette {
   });
 
   constructor() {
-    effect(() => this.input()?.nativeElement.focus());
+    effect(() => {
+      const input = this.input();
+      if (!input) return;
+      this.opener ??= this.document.activeElement as HTMLElement | null;
+      input.nativeElement.focus();
+    });
+
+    afterRenderEffect(() => {
+      const id = this.results()[this.activeIndex()]?.id;
+      if (id) this.document.getElementById(id)?.scrollIntoView({ block: 'nearest' });
+    });
   }
 
   protected onGlobalKeydown(event: KeyboardEvent): void {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
       event.preventDefault();
-      this.palette.toggle();
-      this.reset();
+      if (this.palette.isOpen()) {
+        this.close();
+      } else {
+        this.reset();
+        this.palette.open();
+      }
     } else if (event.key === 'Escape' && this.palette.isOpen()) {
       this.close();
     }
@@ -116,6 +134,11 @@ export class CommandPalette {
   }
 
   protected onInputKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      // El input es el único elemento enfocable del diálogo: el foco no debe salir de él.
+      event.preventDefault();
+      return;
+    }
     const total = this.results().length;
     if (!total) return;
     if (event.key === 'ArrowDown') {
@@ -138,6 +161,8 @@ export class CommandPalette {
   protected close(): void {
     this.palette.close();
     this.reset();
+    this.opener?.focus();
+    this.opener = null;
   }
 
   private reset(): void {
