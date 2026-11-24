@@ -7,7 +7,9 @@ import { Header } from '@core/layout/header/header';
   selector: 'app-root',
   imports: [RouterOutlet, Header, Footer],
   template: `
-    <a class="skip-link" href="#contenido" (click)="skipToContent($event, main)">Saltar al contenido</a>
+    <a class="skip-link" href="#contenido" (click)="skipToContent($event, main)"
+      >Saltar al contenido</a
+    >
     <app-header />
     <main #main id="contenido" tabindex="-1">
       <router-outlet />
