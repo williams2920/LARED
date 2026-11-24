@@ -11,7 +11,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AGENTS, INTEGRATIONS } from '@core/data/mock-data';
+import { AGENTS, INTEGRATIONS } from '@core/data/catalog';
 import { NAV_ITEMS } from '@core/navigation/navigation';
 import { CommandPaletteService } from '@core/services/command-palette.service';
 import { Icon } from '@shared/ui/icon/icon';

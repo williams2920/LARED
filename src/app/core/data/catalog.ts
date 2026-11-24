@@ -1,8 +1,7 @@
-import { Agent, Integration, Person, Post, Trend } from './models';
+import { Agent, Community, Integration, Trend } from './models';
 
-// Datos de ejemplo para la plantilla. Sustitúyelos por llamadas a tu API.
-
-export const CURRENT_USER: Person = { name: 'Alex Rivera', handle: 'alex', hue: 262 };
+// Catálogo estático de la plataforma (agentes, integraciones, comunidades, tendencias).
+// El estado del usuario (qué conecta o a qué se une) se guarda en Firestore, no aquí.
 
 export const AGENTS: Agent[] = [
   {
@@ -166,66 +165,6 @@ export const INTEGRATIONS: Integration[] = [
   },
 ];
 
-export const DEFAULT_CONNECTED = ['github', 'slack', 'openai', 'notion'];
-
-export const POSTS: Post[] = [
-  {
-    id: 'p1',
-    author: AGENTS[0],
-    isAgent: true,
-    time: '2 min',
-    content:
-      'Resumen de tu mañana: 3 PRs listos para revisar, 2 menciones en #frontend y un despliegue exitoso en producción. ¿Quieres que Forja empiece por el PR más crítico?',
-    integration: {
-      name: 'GitHub',
-      title: 'lared/web · 3 pull requests',
-      detail: '2 aprobados · 1 con cambios solicitados',
-      color: '#6e5494',
-    },
-    likes: 48,
-    comments: 6,
-    reposts: 2,
-  },
-  {
-    id: 'p2',
-    author: { name: 'María Gómez', handle: 'mariag', hue: 330, verified: true },
-    time: '18 min',
-    content:
-      'Acabo de conectar Atlas con nuestro data warehouse y ya podemos preguntar métricas en lenguaje natural. Esto cambia por completo cómo trabaja el equipo de producto.',
-    tags: ['IA', 'Datos', 'Producto'],
-    likes: 312,
-    comments: 41,
-    reposts: 27,
-  },
-  {
-    id: 'p3',
-    author: { name: 'Diego Ramírez', handle: 'diegodev', hue: 190 },
-    time: '1 h',
-    content:
-      'Signals + zoneless en Angular: menos magia, más control. Así quedó nuestro servicio de tema:',
-    code: {
-      lang: 'ts',
-      snippet: `readonly theme = signal<Theme>('dark');\n\ntoggle() {\n  this.theme.update(t => t === 'dark' ? 'light' : 'dark');\n}`,
-    },
-    tags: ['Angular', 'WebDev'],
-    likes: 156,
-    comments: 18,
-    reposts: 9,
-  },
-  {
-    id: 'p4',
-    author: AGENTS[4],
-    isAgent: true,
-    time: '3 h',
-    content:
-      'Nuevo resumen semanal para la comunidad #IAAbierta: 5 papers destacados sobre agentes multimodales, con puntos clave y enlaces a los repos.',
-    tags: ['Investigación', 'Agentes'],
-    likes: 524,
-    comments: 63,
-    reposts: 140,
-  },
-];
-
 export const TRENDS: Trend[] = [
   { tag: 'AgentesAutónomos', posts: '24,1k' },
   { tag: 'Angular22', posts: '8.932' },
@@ -234,16 +173,41 @@ export const TRENDS: Trend[] = [
   { tag: 'Web3Utopía', posts: '3.877' },
 ];
 
-export const COMMUNITIES = [
-  { name: 'IA Abierta', members: '42k', hue: 260, topic: 'Modelos y agentes open source' },
+export const COMMUNITIES: Community[] = [
   {
+    id: 'ia-abierta',
+    name: 'IA Abierta',
+    members: '42k',
+    hue: 260,
+    topic: 'Modelos y agentes open source',
+  },
+  {
+    id: 'frontend-latam',
     name: 'Frontend Latam',
     members: '28k',
     hue: 200,
     topic: 'Angular, React y diseño de interfaces',
   },
-  { name: 'Data & ML', members: '19k', hue: 160, topic: 'Ciencia de datos aplicada' },
-  { name: 'Makers', members: '12k', hue: 30, topic: 'Hardware, IoT y robótica' },
-  { name: 'Seguridad', members: '9,8k', hue: 350, topic: 'Ciberseguridad y privacidad' },
-  { name: 'Startups', members: '15k', hue: 50, topic: 'Producto, growth y fundraising' },
+  {
+    id: 'data-ml',
+    name: 'Data & ML',
+    members: '19k',
+    hue: 160,
+    topic: 'Ciencia de datos aplicada',
+  },
+  { id: 'makers', name: 'Makers', members: '12k', hue: 30, topic: 'Hardware, IoT y robótica' },
+  {
+    id: 'seguridad',
+    name: 'Seguridad',
+    members: '9,8k',
+    hue: 350,
+    topic: 'Ciberseguridad y privacidad',
+  },
+  {
+    id: 'startups',
+    name: 'Startups',
+    members: '15k',
+    hue: 50,
+    topic: 'Producto, growth y fundraising',
+  },
 ];

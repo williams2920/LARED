@@ -32,9 +32,8 @@ import { IconName } from '@shared/ui/icon/icons';
       width: 4.5rem;
       height: 4.5rem;
       border-radius: var(--radius-xl);
-      background: var(--gradient-brand);
+      background: var(--color-primary);
       color: #fff;
-      box-shadow: var(--shadow-glow);
     }
     p {
       max-width: 28rem;

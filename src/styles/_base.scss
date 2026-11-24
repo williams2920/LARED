@@ -6,8 +6,6 @@ html {
 
 body {
   background-color: var(--color-bg);
-  background-image: var(--gradient-aurora);
-  background-attachment: fixed;
   transition:
     background-color var(--duration-base) var(--ease-standard),
     color var(--duration-base) var(--ease-standard);

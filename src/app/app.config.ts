@@ -5,6 +5,8 @@ import {
   withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
+import { provideFirebase } from '@core/infrastructure/firebase/firebase.providers';
+import { environment } from '@env/environment';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -16,5 +18,6 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'top', anchorScrolling: 'enabled' }),
       withViewTransitions(),
     ),
+    provideFirebase(environment.firebase),
   ],
 };

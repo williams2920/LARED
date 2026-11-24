@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { Icon } from '../icon/icon';
 import { IconName } from '../icon/icons';
 
-/** Avatar con iniciales y degradado; para agentes muestra un icono y forma de "chip". */
+/** Avatar con iniciales sobre un tono sólido; para agentes muestra un icono y forma de "chip". */
 @Component({
   selector: 'app-avatar',
   imports: [Icon],
@@ -70,6 +70,6 @@ export class Avatar {
 
   protected readonly background = computed(() => {
     const h = this.hue() ?? [...this.name()].reduce((acc, c) => acc + c.charCodeAt(0), 0) % 360;
-    return `linear-gradient(135deg, hsl(${h} 80% 62%), hsl(${(h + 50) % 360} 85% 52%))`;
+    return `hsl(${h} 32% 46%)`;
   });
 }

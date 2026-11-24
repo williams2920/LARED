@@ -1,49 +1,27 @@
 @let p = post();
-<article class="post" [class.post--agent]="p.isAgent">
-  @if (agent(); as a) {
-    <app-avatar [name]="a.name" [hue]="a.hue" [icon]="a.icon" [agent]="true" [size]="44" />
-  } @else {
-    <app-avatar [name]="p.author.name" [hue]="p.author.hue" [size]="44" />
-  }
+<article class="post">
+  <app-avatar [name]="p.author.name" [hue]="p.author.hue" [size]="44" />
 
   <div class="post__body">
     <header class="post__head">
       <strong>{{ p.author.name }}</strong>
-      @if (p.isAgent) {
-        <span class="badge"
-          ><app-icon name="sparkles" [size]="11" [strokeWidth]="2.25" /> Agente IA</span
+      <span class="post__meta">&#64;{{ p.author.handle }} · {{ p.createdAt | timeAgo }}</span>
+      @if (own()) {
+        <button
+          type="button"
+          class="btn btn--ghost btn--icon btn--sm post__more"
+          aria-label="Eliminar publicación"
+          title="Eliminar"
+          (click)="remove.emit()"
         >
-      } @else if ($any(p.author).verified) {
-        <app-icon name="verified" [size]="16" class="verified" />
+          <app-icon name="trash" [size]="16" />
+        </button>
       }
-      <span class="post__meta">&#64;{{ p.author.handle }} · {{ p.time }}</span>
-      <button
-        type="button"
-        class="btn btn--ghost btn--icon btn--sm post__more"
-        aria-label="Más opciones"
-      >
-        <app-icon name="more" [size]="18" />
-      </button>
     </header>
 
     <p class="post__text">{{ p.content }}</p>
 
-    @if (p.code) {
-      <pre class="post__code"><code>{{ p.code.snippet }}</code></pre>
-    }
-
-    @if (p.integration; as int) {
-      <div class="post__integration">
-        <span class="post__integration-logo" [style.background]="int.color">{{ int.name[0] }}</span>
-        <div>
-          <strong>{{ int.title }}</strong>
-          <p>{{ int.detail }}</p>
-        </div>
-        <span class="badge badge--accent">{{ int.name }}</span>
-      </div>
-    }
-
-    @if (p.tags?.length) {
+    @if (p.tags.length) {
       <ul class="post__tags" role="list">
         @for (tag of p.tags; track tag) {
           <li>#{{ tag }}</li>
@@ -52,26 +30,21 @@
     }
 
     <footer class="post__actions">
-      <button type="button" class="action" aria-label="Comentar">
-        <app-icon name="message" [size]="18" /> {{ p.comments }}
-      </button>
-      <button type="button" class="action action--repost" aria-label="Compartir en tu red">
-        <app-icon name="repost" [size]="18" /> {{ p.reposts }}
-      </button>
       <button
         type="button"
         class="action action--like"
         [class.is-on]="liked()"
         [attr.aria-pressed]="liked()"
         aria-label="Me gusta"
-        (click)="liked.set(!liked())"
+        (click)="like.emit()"
       >
-        <app-icon name="heart" [size]="18" [filled]="liked()" /> {{ likes() }}
+        <app-icon name="heart" [size]="18" [filled]="liked()" /> {{ p.likedBy.length }}
       </button>
       <button
         type="button"
         class="action action--ai"
         aria-label="Preguntar a un agente sobre esta publicación"
+        (click)="ask.emit()"
       >
         <app-icon name="sparkles" [size]="18" /> <span class="action__label">Preguntar</span>
       </button>
@@ -82,12 +55,9 @@
         [class.is-on]="saved()"
         [attr.aria-pressed]="saved()"
         aria-label="Guardar"
-        (click)="saved.set(!saved())"
+        (click)="save.emit()"
       >
         <app-icon name="bookmark" [size]="18" [filled]="saved()" />
-      </button>
-      <button type="button" class="action" aria-label="Compartir">
-        <app-icon name="share" [size]="18" />
       </button>
     </footer>
   </div>
