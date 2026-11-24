@@ -1,0 +1,19 @@
+@if (breadcrumbs().length) {
+  <nav aria-label="Ruta de navegación">
+    <ol class="breadcrumbs" role="list">
+      @for (crumb of breadcrumbs(); track crumb.label; let last = $last) {
+        <li>
+          @if (crumb.path && !last) {
+            <a [routerLink]="crumb.path">{{ crumb.label }}</a>
+          } @else {
+            <span [attr.aria-current]="last ? 'page' : null">{{ crumb.label }}</span>
+          }
+        </li>
+      }
+    </ol>
+  </nav>
+}
+<h1>{{ title() }}</h1>
+@if (subtitle()) {
+  <p class="subtitle">{{ subtitle() }}</p>
+}

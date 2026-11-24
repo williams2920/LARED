@@ -1,0 +1,20 @@
+@use 'mixins' as *;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition:
+    background-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}

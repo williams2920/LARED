@@ -1,0 +1,39 @@
+<section class="hero">
+  <div class="container hero__inner">
+    <p class="hero__eyebrow">Plantilla Angular</p>
+    <h1>Bienvenido a LA RED</h1>
+    <p class="hero__lead">
+      Punto de partida listo para construir: estilos, fuentes, tema y menú ya configurados.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" [routerLink]="sections[0].path">Explorar secciones</a>
+      <a class="btn btn--outline" href="https://angular.dev" target="_blank" rel="noopener">
+        Documentación de Angular
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="container block">
+  <h2>¿Qué incluye?</h2>
+  <div class="grid">
+    @for (feature of features; track feature.title) {
+      <article class="card">
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.text }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="container block">
+  <h2>Secciones</h2>
+  <div class="grid">
+    @for (section of sections; track section.path) {
+      <a class="card" [routerLink]="section.path">
+        <h3>{{ section.label }}</h3>
+        <p>{{ section.children?.length }} subsecciones</p>
+      </a>
+    }
+  </div>
+</section>

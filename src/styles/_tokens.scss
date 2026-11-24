@@ -1,0 +1,96 @@
+// Design tokens como CSS custom properties.
+// Cambia aquí la paleta, tipografía, espaciados, radios y sombras de toda la app.
+
+:root {
+  // Marca (colores originales de LA RED)
+  --brand-red: #e10600;
+  --brand-red-strong: #b80500;
+  --brand-red-soft: #ff4d47;
+  --brand-blue: #024fb2;
+  --brand-blue-strong: #013a84;
+  --brand-blue-soft: #3a7be0;
+
+  // Tipografía
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Montserrat Variable', var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 1.6rem + 3vw, 3.25rem);
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+
+  // Espaciado (escala de 4px)
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  // Bordes y sombras
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.14);
+
+  // Movimiento
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  // Capas
+  --z-dropdown: 100;
+  --z-header: 200;
+  --z-drawer: 300;
+
+  // Tema claro (por defecto)
+  color-scheme: light;
+  --color-bg: #f5f6f8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #eef0f4;
+  --color-text: #1b1f27;
+  --color-text-muted: #5b6475;
+  --color-border: #dde1e8;
+  --color-primary: var(--brand-red);
+  --color-primary-hover: var(--brand-red-strong);
+  --color-on-primary: #ffffff;
+  --color-secondary: var(--brand-blue);
+  --color-secondary-hover: var(--brand-blue-strong);
+  --color-on-secondary: #ffffff;
+  --color-nav: var(--brand-red);
+  --color-on-nav: #ffffff;
+  --color-link: var(--brand-blue);
+  --color-focus: #ffbf47;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0f1218;
+  --color-surface: #171b23;
+  --color-surface-alt: #1f2530;
+  --color-text: #e8ebf1;
+  --color-text-muted: #9aa3b5;
+  --color-border: #2b3240;
+  --color-primary: var(--brand-red-soft);
+  --color-primary-hover: var(--brand-red);
+  --color-secondary: var(--brand-blue-strong);
+  --color-secondary-hover: var(--brand-blue);
+  --color-link: var(--brand-blue-soft);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.5);
+}

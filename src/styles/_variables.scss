@@ -1,0 +1,14 @@
+// Variables Sass (solo en tiempo de compilación).
+// Para colores/espaciados en runtime usa las custom properties de _tokens.scss.
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$container-max-width: 1200px;
+$header-height: 4.5rem;
+$nav-height: 3.25rem;
