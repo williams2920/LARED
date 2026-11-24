@@ -1,6 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  NavigationEnd,
+  NavigationSkipped,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { filter } from 'rxjs';
 import { MAIN_MENU } from '@core/navigation/menu';
 import { ThemeService } from '@core/services/theme.service';
@@ -26,7 +32,7 @@ export class Header {
   constructor() {
     inject(Router)
       .events.pipe(
-        filter((e) => e instanceof NavigationEnd),
+        filter((e) => e instanceof NavigationEnd || e instanceof NavigationSkipped),
         takeUntilDestroyed(),
       )
       .subscribe(() => this.closeAll());
