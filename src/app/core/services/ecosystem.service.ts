@@ -1,32 +1,41 @@
-import { Injectable, computed, signal } from '@angular/core';
-import { AGENTS, DEFAULT_CONNECTED, INTEGRATIONS } from '@core/data/mock-data';
+import { computed, inject, Injectable } from '@angular/core';
+import { AGENTS, COMMUNITIES, INTEGRATIONS } from '@core/data/catalog';
+import { ProfileService } from './profile.service';
 
-/** Estado de agentes e integraciones conectados (en memoria; reemplazar por API). */
+/**
+ * Catálogo de agentes, integraciones y comunidades, cruzado con lo que el usuario tiene
+ * conectado en su perfil. El catálogo es estático; el estado de conexión se persiste.
+ */
 @Injectable({ providedIn: 'root' })
 export class EcosystemService {
+  private readonly profiles = inject(ProfileService);
+
   readonly agents = AGENTS;
   readonly integrations = INTEGRATIONS;
+  readonly communities = COMMUNITIES;
 
-  readonly connectedIntegrations = signal(new Set(DEFAULT_CONNECTED));
-  readonly connectedAgents = signal(new Set(['nexus', 'forja']));
+  readonly connectedAgents = computed(() => new Set(this.profiles.profile()?.connectedAgents));
+  readonly connectedIntegrations = computed(
+    () => new Set(this.profiles.profile()?.connectedIntegrations),
+  );
+  readonly joinedCommunities = computed(() => new Set(this.profiles.profile()?.joinedCommunities));
 
-  readonly connectedIntegrationCount = computed(() => this.connectedIntegrations().size);
+  readonly connectedIntegrationCount = computed(
+    () => this.integrations.filter((i) => this.connectedIntegrations().has(i.id)).length,
+  );
   readonly activeAgents = computed(() =>
     this.agents.filter((a) => this.connectedAgents().has(a.id)),
   );
 
-  toggleIntegration(id: string): void {
-    this.connectedIntegrations.update((set) => toggle(set, id));
+  toggleAgent(id: string): Promise<void> {
+    return this.profiles.toggle('connectedAgents', id);
   }
 
-  toggleAgent(id: string): void {
-    this.connectedAgents.update((set) => toggle(set, id));
+  toggleIntegration(id: string): Promise<void> {
+    return this.profiles.toggle('connectedIntegrations', id);
   }
-}
 
-function toggle(set: Set<string>, id: string): Set<string> {
-  const next = new Set(set);
-  if (next.has(id)) next.delete(id);
-  else next.add(id);
-  return next;
+  toggleCommunity(id: string): Promise<void> {
+    return this.profiles.toggle('joinedCommunities', id);
+  }
 }

@@ -39,7 +39,9 @@
     <app-icon name="sparkles" [size]="18" />
     Agentes
   </a>
-  <a routerLink="/perfil" class="mobile-only" aria-label="Tu perfil">
-    <app-avatar [name]="user.name" [hue]="user.hue" [size]="32" />
-  </a>
+  @if (user(); as u) {
+    <a routerLink="/perfil" class="mobile-only" aria-label="Tu perfil">
+      <app-avatar [name]="u.displayName" [hue]="u.hue" [size]="32" />
+    </a>
+  }
 </div>

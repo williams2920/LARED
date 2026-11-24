@@ -6,9 +6,7 @@
   align-items: center;
   gap: var(--space-4);
   margin-bottom: var(--space-5);
-  background:
-    radial-gradient(24rem 8rem at 0% 50%, rgb(34 211 238 / 0.14), transparent 70%),
-    var(--color-surface);
+  background: var(--color-surface);
 
   > div:nth-child(2) {
     flex: 1;
@@ -26,9 +24,8 @@
     width: 3.5rem;
     height: 3.5rem;
     border-radius: var(--radius-lg);
-    background: var(--gradient-brand);
+    background: var(--color-primary);
     color: #fff;
-    box-shadow: var(--shadow-glow);
   }
 
   &__bar {
@@ -42,7 +39,7 @@
       display: block;
       height: 100%;
       border-radius: inherit;
-      background: var(--gradient-brand);
+      background: var(--color-primary);
       transition: width var(--duration-slow) var(--ease-standard);
     }
   }
@@ -163,7 +160,7 @@
     color: var(--color-text);
 
     .switch__track {
-      background: var(--gradient-brand);
+      background: var(--color-primary);
     }
 
     .switch__thumb {

@@ -50,11 +50,8 @@ pre {
   background: var(--color-surface-alt);
 }
 
-.text-gradient {
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.text-accent {
+  color: var(--color-primary);
 }
 
 .text-muted {

@@ -18,12 +18,7 @@
     inset: -40% 10% auto;
     z-index: -1;
     height: 26rem;
-    background: radial-gradient(
-      closest-side,
-      rgb(124 92 255 / 0.35),
-      rgb(34 211 238 / 0.12),
-      transparent
-    );
+    background: radial-gradient(closest-side, var(--color-primary-soft), transparent);
     filter: blur(20px);
   }
 
@@ -63,7 +58,6 @@
     border-radius: var(--radius-full);
     background: var(--color-surface);
     color: var(--color-text-subtle);
-    box-shadow: var(--shadow-glow);
     transition: border-color var(--duration-base) var(--ease-standard);
 
     span:nth-child(2) {
@@ -100,8 +94,8 @@
     width: 2.75rem;
     height: 2.75rem;
     border-radius: var(--radius-md);
-    background: hsl(var(--hue) 80% 60% / 0.15);
-    color: hsl(var(--hue) 85% 70%);
+    background: hsl(var(--hue) 30% 50% / 0.14);
+    color: hsl(var(--hue) 35% 60%);
   }
 
   &__members {

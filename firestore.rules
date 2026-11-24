@@ -1,0 +1,58 @@
+rules_version = '2';
+
+// Reglas de seguridad de LA RED. Contrato completo en docs/contrato-de-interfaces.md.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function changed() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // ---------- users/{uid}: perfil y preferencias ----------
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if isOwner(uid)
+        && request.resource.data.uid == uid
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 50;
+      allow update: if isOwner(uid)
+        && !changed().hasAny(['uid', 'createdAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 50
+        && request.resource.data.bio is string
+        && request.resource.data.bio.size() <= 160;
+      allow delete: if false;
+    }
+
+    // ---------- posts/{postId}: publicaciones del feed ----------
+    match /posts/{postId} {
+      allow read: if signedIn();
+
+      allow create: if signedIn()
+        && request.resource.data.authorId == request.auth.uid
+        && request.resource.data.content is string
+        && request.resource.data.content.size() > 0
+        && request.resource.data.content.size() <= 1000
+        && request.resource.data.likedBy.size() == 0
+        && request.resource.data.createdAt == request.time;
+
+      // Un usuario solo puede agregar o quitar su propio uid de likedBy.
+      allow update: if signedIn()
+        && changed().hasOnly(['likedBy'])
+        && request.resource.data.likedBy.toSet()
+             .difference(resource.data.likedBy.toSet()).hasOnly([request.auth.uid])
+        && resource.data.likedBy.toSet()
+             .difference(request.resource.data.likedBy.toSet()).hasOnly([request.auth.uid]);
+
+      allow delete: if signedIn() && resource.data.authorId == request.auth.uid;
+    }
+  }
+}

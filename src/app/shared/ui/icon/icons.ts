@@ -45,6 +45,14 @@ import {
   Users,
   Workflow,
   X,
+  Eye,
+  EyeOff,
+  LoaderCircle,
+  Lock,
+  LogIn,
+  Mail,
+  Pencil,
+  Trash2,
   Zap,
 } from 'lucide';
 
@@ -96,6 +104,14 @@ export const ICONS = {
   workflow: Workflow,
   x: X,
   zap: Zap,
+  eye: Eye,
+  'eye-off': EyeOff,
+  loader: LoaderCircle,
+  lock: Lock,
+  login: LogIn,
+  mail: Mail,
+  pencil: Pencil,
+  trash: Trash2,
 } satisfies Record<string, IconNode>;
 
 export type IconName = keyof typeof ICONS;

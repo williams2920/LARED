@@ -1,12 +1,5 @@
 import { IconName } from '@shared/ui/icon/icons';
 
-export interface Person {
-  name: string;
-  handle: string;
-  hue?: number;
-  verified?: boolean;
-}
-
 export interface Agent {
   id: string;
   name: string;
@@ -28,21 +21,15 @@ export interface Integration {
   color: string;
 }
 
-export interface Post {
-  id: string;
-  author: Person | Agent;
-  isAgent?: boolean;
-  time: string;
-  content: string;
-  tags?: string[];
-  code?: { lang: string; snippet: string };
-  integration?: { name: string; title: string; detail: string; color: string };
-  likes: number;
-  comments: number;
-  reposts: number;
-}
-
 export interface Trend {
   tag: string;
   posts: string;
+}
+
+export interface Community {
+  id: string;
+  name: string;
+  members: string;
+  hue: number;
+  topic: string;
 }

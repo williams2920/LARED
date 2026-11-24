@@ -1,0 +1,77 @@
+@if (profiles.profile(); as me) {
+  <div class="page">
+    <section class="card identity">
+      <app-avatar [name]="me.displayName" [hue]="me.hue" [size]="88" />
+      @if (!editing()) {
+        <div class="identity__info">
+          <h1>{{ me.displayName }}</h1>
+          <p class="identity__handle">&#64;{{ me.handle }} · {{ email() }}</p>
+          <p class="identity__bio">{{ me.bio || 'Aún no escribes una biografía.' }}</p>
+        </div>
+        <button type="button" class="btn btn--outline btn--sm" (click)="editing.set(true)">
+          <app-icon name="pencil" [size]="14" /> Editar perfil
+        </button>
+      } @else {
+        <form class="identity__form" [formGroup]="form" (ngSubmit)="save()">
+          <label class="field">
+            <span>Nombre</span>
+            <input formControlName="displayName" type="text" autocomplete="name" />
+          </label>
+          <label class="field">
+            <span>Usuario</span>
+            <input formControlName="handle" type="text" autocomplete="username" />
+            @if (form.controls.handle.touched && form.controls.handle.invalid) {
+              <small>3 a 20 caracteres: minúsculas, números o guion bajo.</small>
+            }
+          </label>
+          <label class="field">
+            <span>Biografía</span>
+            <textarea formControlName="bio" rows="3" maxlength="160"></textarea>
+          </label>
+          @if (message(); as m) {
+            <p class="error" role="alert">{{ m }}</p>
+          }
+          <div class="identity__actions">
+            <button type="button" class="btn btn--ghost btn--sm" (click)="editing.set(false)">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn--primary btn--sm" [disabled]="saving()">
+              Guardar
+            </button>
+          </div>
+        </form>
+      }
+    </section>
+
+    <dl class="stats">
+      <div class="card">
+        <dt>Publicaciones</dt>
+        <dd>{{ postCount() }}</dd>
+      </div>
+      <div class="card">
+        <dt>Agentes</dt>
+        <dd>{{ ecosystem.activeAgents().length }}</dd>
+      </div>
+      <div class="card">
+        <dt>Integraciones</dt>
+        <dd>{{ ecosystem.connectedIntegrationCount() }}</dd>
+      </div>
+      <div class="card">
+        <dt>Comunidades</dt>
+        <dd>{{ ecosystem.joinedCommunities().size }}</dd>
+      </div>
+    </dl>
+
+    <section class="card">
+      <h2 class="section-title">Tus agentes</h2>
+      <ul class="pills" role="list">
+        @for (agent of ecosystem.activeAgents(); track agent.id) {
+          <li class="chip"><app-icon [name]="agent.icon" [size]="14" /> {{ agent.name }}</li>
+        } @empty {
+          <li class="text-muted">Sin agentes conectados.</li>
+        }
+      </ul>
+      <a routerLink="/agentes" class="more">Administrar agentes</a>
+    </section>
+  </div>
+}
